@@ -9,7 +9,7 @@ from torchmetrics import BLEUScore, CharErrorRate, WordErrorRate
 
 from torchood.data.components.opus_books import casual_mask
 
-from bilang_transformer import build_transformer
+from transformer_network import build_transformer
 
 
 class BiLangLitModule(LightningModule):
