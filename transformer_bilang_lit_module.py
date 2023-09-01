@@ -2,8 +2,10 @@ from typing import Any, List, Optional, Union
 
 import torch
 import torch.nn as nn
-from lightning.pytorch import LightningModule
-from lightning.pytorch.utilities.types import STEP_OUTPUT
+# from lightning.pytorch import LightningModule
+# from lightning.pytorch.utilities.types import STEP_OUTPUT
+from pytorch_lightning import LightningModule
+from pytorch_lightning.utilities.types import STEP_OUTPUT
 from torch.optim.lr_scheduler import LambdaLR
 from torchmetrics import BLEUScore, CharErrorRate, WordErrorRate
 
