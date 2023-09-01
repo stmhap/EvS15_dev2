@@ -7,10 +7,10 @@ import torch.nn as nn
 from pytorch_lightning import LightningModule
 from pytorch_lightning.utilities.types import STEP_OUTPUT
 from torch.optim.lr_scheduler import LambdaLR
-from torchmetrics import BLEUScore, CharErrorRate, WordErrorRate
+from torchmetrics.text import BLEUScore, CharErrorRate, WordErrorRate
 
 from torchood.data.components.opus_books import casual_mask
-
+from pytorch_lightning import loggers as pl_loggers
 from transformer_network import build_transformer
 
 
