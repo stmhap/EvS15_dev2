@@ -96,14 +96,25 @@ class BiLangLitModule(LightningModule):
             encoder_input, encoder_mask, max_len=self.seq_len, device=self.device
         )
 
-        source_text = batch["src_txt"][0]
+        source_text = batch["src_text"][0]
         target_text = batch["tgt_text"][0]
         out_text = self.tokenizer_tgt.decode(out.detach().cpu().numpy())
 
         self.source_texts.append(source_text)
         self.expected.append(target_text)
         self.predicted.append(out_text)
-
+        
+        current_epoch = self.current_epoch
+        if (
+            isinstance(self.logger, pl_loggers.wandb.WandbLogger)
+            and current_epoch > 5
+            and current_epoch % 2 == 0
+            and batch_idx in [0, 10, 15]
+        ):
+            columns = ["input", "label", "prediction"]
+            data = [[source_text, target_text, out_text]]
+            self.logger.log_text(key="samples", columns=columns, data=data)
+    
     def on_validation_epoch_end(self) -> None:
         cer = self.char_error_rate(self.predicted, self.expected)
         wer = self.word_error_rate(self.predicted, self.expected)
